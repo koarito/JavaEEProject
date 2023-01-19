@@ -1,7 +1,9 @@
-package se.koarito.JavaEEProject;
+package se.koarito.JavaEEProject.data.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
+import se.koarito.JavaEEProject.data.pojo.Hourly;
+import se.koarito.JavaEEProject.data.pojo.HourlyUnits;
 
 @Getter
 @Setter
