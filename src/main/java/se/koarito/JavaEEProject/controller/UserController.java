@@ -1,6 +1,7 @@
 package se.koarito.JavaEEProject.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.koarito.JavaEEProject.data.domain.User;
 import se.koarito.JavaEEProject.data.projection.UserView;
@@ -15,12 +16,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/getUser")
-    private UserView getUser(@RequestParam("email") String getEmail) {
+    private ResponseEntity<UserView> getUser(@RequestParam("email") String getEmail) {
         return userService.getUser(getEmail);
     }
 
     @PutMapping("/saveUser")
-    private User getUser(@RequestBody User user) {
+    private ResponseEntity<User> getUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
@@ -29,4 +30,8 @@ public class UserController {
         userService.deleteUser(id);
     }
 
+    @PatchMapping("/editUser/{email}")
+    private ResponseEntity<User> editUser(@RequestBody User user, @PathVariable("email")String email){
+        return userService.editUser(user,email);
+    }
 }
