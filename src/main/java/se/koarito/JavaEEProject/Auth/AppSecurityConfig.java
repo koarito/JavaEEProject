@@ -22,7 +22,7 @@ public class AppSecurityConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests ()
-                .requestMatchers ("/", "/rest/encode", "/error", "/login", "http://localhost:8080/weather/info?latitude=31.63&longitude=-8.00").permitAll()
+                .requestMatchers ("/", "/rest/encode", "/error", "/login", "/weather/info").permitAll()
                 .anyRequest().authenticated ()
                 .and()
                 .formLogin();

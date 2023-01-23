@@ -2,8 +2,6 @@ package se.koarito.JavaEEProject.data.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
-import se.koarito.JavaEEProject.data.pojo.Hourly;
-import se.koarito.JavaEEProject.data.pojo.HourlyUnits;
 
 @Getter
 @Setter
@@ -20,11 +18,8 @@ public class Weather {
     private String timezone;
     private String timezone_abbreviation;
 
-    private Double rain;
 
-    private Double windspeed_10m;
 
-    private Double winddirection_10m;
 
     //Nestled objects
     private HourlyUnits hourly_units;

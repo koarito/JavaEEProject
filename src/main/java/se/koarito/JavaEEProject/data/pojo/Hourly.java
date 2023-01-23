@@ -13,4 +13,7 @@ public class Hourly {
     public ArrayList<Double> temperature_2m;
     public ArrayList<Double> rain;
 
+    public ArrayList<Double>windspeed_10m;
+
+    public ArrayList<Double> winddirection_10m;
 }
