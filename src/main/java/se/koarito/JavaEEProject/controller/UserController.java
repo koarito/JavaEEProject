@@ -20,7 +20,7 @@ public class UserController {
         return userService.getUser(getEmail);
     }
 
-    @PutMapping("/saveUser")
+    @PostMapping("/saveUser")
     private ResponseEntity<User> getUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
