@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.koarito.JavaEEProject.data.domain.User;
 import se.koarito.JavaEEProject.data.projection.UserView;
+import se.koarito.JavaEEProject.data.requestbody.UserRequest;
 import se.koarito.JavaEEProject.service.UserService;
 
 @RestController
@@ -14,6 +15,11 @@ import se.koarito.JavaEEProject.service.UserService;
 public class UserController {
 
     private final UserService userService;
+
+    @PostMapping("/create")
+    private long createUser(@RequestBody UserRequest userRequest){
+        return userService.createUser(userRequest);
+    }
 
     @GetMapping("/getUser")
     private ResponseEntity<UserView> getUser(@RequestParam("email") String getEmail) {

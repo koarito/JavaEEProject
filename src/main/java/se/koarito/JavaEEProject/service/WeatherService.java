@@ -8,8 +8,9 @@ import se.koarito.JavaEEProject.data.pojo.Weather;
 public class WeatherService {
 
  public Weather callWeatherApi(Double latitude, Double longitude){
-  final String url = "https://api.open-meteo.com/v1/forecast?latitude="+latitude.toString()+"&longitude="+longitude.toString()+"&hourly=temperature_2m,rain,windspeed_10m,winddirection_10m"; RestTemplate restTemplate = new RestTemplate();
- Weather weather;
+  final String url = "https://api.open-meteo.com/v1/forecast?latitude="+latitude.toString()+"&longitude="+longitude.toString()+"&hourly=temperature_2m,rain,windspeed_10m,winddirection_10m";
+  RestTemplate restTemplate = new RestTemplate();
+  Weather weather;
 
   try {
    weather = restTemplate.getForObject(url, Weather.class);

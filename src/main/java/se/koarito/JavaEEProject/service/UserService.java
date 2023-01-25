@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import se.koarito.JavaEEProject.data.domain.User;
+import se.koarito.JavaEEProject.data.enm.Role;
 import se.koarito.JavaEEProject.data.projection.UserView;
+import se.koarito.JavaEEProject.data.requestbody.UserRequest;
 import se.koarito.JavaEEProject.repository.UserRepository;
 
 import java.util.Objects;
@@ -16,6 +18,17 @@ import java.util.Objects;
 public class UserService {
 
     private final UserRepository userRepository;
+
+
+    public long createUser(UserRequest requestBody){
+        User user = User.builder().
+                firstName(requestBody.getFirstName())
+                .lastName(requestBody.getLastName())
+                .email(requestBody.getEmail())
+                .password(requestBody.getPassword())
+                .role(Role.valueOf(requestBody.getRole())).build();
+        return userRepository.save(user).getId();
+    }
 
     public ResponseEntity<UserView> getUser(String getEmail) {
         try {

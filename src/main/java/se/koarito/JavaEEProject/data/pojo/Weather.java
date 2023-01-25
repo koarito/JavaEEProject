@@ -18,9 +18,6 @@ public class Weather {
     private String timezone;
     private String timezone_abbreviation;
 
-
-
-
     //Nestled objects
     private HourlyUnits hourly_units;
     private Hourly hourly;
