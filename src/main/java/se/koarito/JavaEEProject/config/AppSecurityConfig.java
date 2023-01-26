@@ -14,7 +14,8 @@ public class AppSecurityConfig implements WebMvcConfigurer {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests ()
+        http.csrf().disable()
+                .authorizeHttpRequests ()
                 .requestMatchers ("/", "/rest/encode", "/error", "/login", "/weather/**", "/user/**").permitAll()
                 .anyRequest().authenticated ()
                 .and()
