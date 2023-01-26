@@ -21,21 +21,16 @@ public class UserController {
         return userService.createUser(userRequest);
     }
 
-    @GetMapping("/getUser")
-    private ResponseEntity<UserView> getUser(@RequestParam("email") String getEmail) {
-        return userService.getUser(getEmail);
+    @GetMapping("/getuser")
+    ResponseEntity<UserView> getUser(@RequestParam("email") String email) {
+        return userService.getUser(email);
     }
-
-    @PostMapping("/saveUser")
-    private ResponseEntity<User> getUser(@RequestBody User user) {
-        return userService.saveUser(user);
-    }
-
-    @DeleteMapping("deleteUser")
+    @DeleteMapping("/deleteuser")
     private void deleteUser(@RequestParam("id") Long id) {
         userService.deleteUser(id);
     }
 
+    //TODO not working
     @PatchMapping("/editUser/{email}")
     private ResponseEntity<User> editUser(@RequestBody User user, @PathVariable("email")String email){
         return userService.editUser(user,email);

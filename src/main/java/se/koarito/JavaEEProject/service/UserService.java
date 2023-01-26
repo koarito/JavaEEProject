@@ -30,23 +30,14 @@ public class UserService {
         return userRepository.save(user).getId();
     }
 
-    public ResponseEntity<UserView> getUser(String getEmail) {
+    public ResponseEntity<UserView> getUser(String email) {
         try {
-           UserView user = userRepository.findByEmail(getEmail).get();
+           UserView user = userRepository.findByEmail(email).get();
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch(Exception e){
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
 
-    }
-
-    public ResponseEntity<User> saveUser(User user) {
-        try {
-            User userSaved = userRepository.save(user);
-            return new ResponseEntity<>(userSaved, HttpStatus.OK);
-        } catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     public void deleteUser(Long id) {
