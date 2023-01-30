@@ -31,8 +31,8 @@ public class UserController {
     }
 
     //TODO not working
-    @PatchMapping("/editUser/{email}")
-    private ResponseEntity<User> editUser(@RequestBody User user, @PathVariable("email")String email){
-        return userService.editUser(user,email);
+    @PatchMapping("/edituser/{id}")
+    private ResponseEntity<User> editUser(@RequestBody User user, @PathVariable("id") Long id){
+        return userService.editUser(user,id);
     }
 }

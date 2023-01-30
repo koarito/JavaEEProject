@@ -48,9 +48,9 @@ public class UserService {
         }
     }
 
-    public ResponseEntity<User> editUser(User user, String email){
+    public ResponseEntity<User> editUser(User user, Long id){
 
-        User userInDB = (User) userRepository.findByEmail(email).get();
+        User userInDB = userRepository.findById(id).get();
         if (Objects.nonNull(user.getEmail()))
             userInDB.setEmail(user.getEmail());
 
@@ -59,10 +59,6 @@ public class UserService {
 
         if (Objects.nonNull(user.getLastName()))
             userInDB.setLastName(user.getLastName());
-
-        //TODO: maybe user should not be able to change password...?
-        if (Objects.nonNull(user.getPassword()))
-            userInDB.setPassword(user.getPassword());
 
         return new ResponseEntity<>(userRepository.save(userInDB), HttpStatus.OK);
     }

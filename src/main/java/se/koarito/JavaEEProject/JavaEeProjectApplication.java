@@ -4,6 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import se.koarito.JavaEEProject.data.domain.User;
 import se.koarito.JavaEEProject.data.enm.Role;
 import se.koarito.JavaEEProject.repository.UserRepository;
@@ -23,4 +25,17 @@ public class JavaEeProjectApplication {
 	}
 	*/
 
+
+
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/user/edituser/**").allowedOrigins("http://localhost:8080");
+			}
+		};
+	}
 }
+
