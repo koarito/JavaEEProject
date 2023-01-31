@@ -21,8 +21,8 @@ public class UserService {
 
 
     public long createUser(UserRequest requestBody){
-        User user = User.builder().
-                firstName(requestBody.getFirstName())
+        User user = User.builder()
+                .firstName(requestBody.getFirstName())
                 .lastName(requestBody.getLastName())
                 .email(requestBody.getEmail())
                 .password(requestBody.getPassword())

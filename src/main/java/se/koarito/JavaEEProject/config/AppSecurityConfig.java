@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class AppSecurityConfig implements WebMvcConfigurer {
+public class AppSecurityConfig {
 
 
     @Bean
