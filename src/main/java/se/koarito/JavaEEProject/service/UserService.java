@@ -3,7 +3,11 @@ package se.koarito.JavaEEProject.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import se.koarito.JavaEEProject.config.PasswordConfig;
 import se.koarito.JavaEEProject.data.domain.User;
 import se.koarito.JavaEEProject.data.enm.Role;
 import se.koarito.JavaEEProject.data.projection.UserView;
@@ -15,9 +19,11 @@ import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final PasswordConfig passwordConfig;
+
 
 
     public long createUser(UserRequest requestBody){
@@ -25,7 +31,7 @@ public class UserService {
                 .firstName(requestBody.getFirstName())
                 .lastName(requestBody.getLastName())
                 .email(requestBody.getEmail())
-                .password(requestBody.getPassword())
+                .password(passwordConfig.bCryptEncoder().encode(requestBody.getPassword()))
                 .role(Role.valueOf(requestBody.getRole())).build();
         return userRepository.save(user).getId();
     }
@@ -63,4 +69,8 @@ public class UserService {
         return new ResponseEntity<>(userRepository.save(userInDB), HttpStatus.OK);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByFirstName(username);
+    }
 }
