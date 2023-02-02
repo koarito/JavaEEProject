@@ -38,6 +38,7 @@ public class AuthService {
     public AuthResponse authenticate(AuthRequest authRequest){
     authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
     var user = userRepository.findByEmail(authRequest.getEmail()).orElseThrow();
+    //todo - add email or id to payload
         var jwtToken = jwtService.generateToken(new HashMap<>(),user);
         return AuthResponse.builder().token(jwtToken).build();
     }
