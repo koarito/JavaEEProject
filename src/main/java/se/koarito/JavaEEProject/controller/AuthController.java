@@ -2,11 +2,9 @@ package se.koarito.JavaEEProject.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.koarito.JavaEEProject.Response.AuthResponse;
+import se.koarito.JavaEEProject.data.requestbody.AuthRequest;
 import se.koarito.JavaEEProject.data.requestbody.UserRequest;
 import se.koarito.JavaEEProject.service.AuthService;
 
@@ -16,9 +14,12 @@ import se.koarito.JavaEEProject.service.AuthService;
 public class AuthController {
     private final AuthService authService;
     @PostMapping("/signup")
-    private ResponseEntity<AuthResponse> createUser(@RequestBody UserRequest userRequest){
+    public ResponseEntity<AuthResponse> createUser(@RequestBody UserRequest userRequest){
         return ResponseEntity.ok(authService.createUser(userRequest));
     }
 
-
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest authRequest){
+        return ResponseEntity.ok(authService.authenticate(authRequest));
+    }
 }
