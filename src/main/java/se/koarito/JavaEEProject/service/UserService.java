@@ -22,19 +22,6 @@ import java.util.Objects;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final PasswordConfig passwordConfig;
-
-
-
-    public long createUser(UserRequest requestBody){
-        User user = User.builder()
-                .firstName(requestBody.getFirstName())
-                .lastName(requestBody.getLastName())
-                .email(requestBody.getEmail())
-                .password(passwordConfig.bCryptEncoder().encode(requestBody.getPassword()))
-                .role(Role.valueOf(requestBody.getRole())).build();
-        return userRepository.save(user).getId();
-    }
 
     public ResponseEntity<UserView> getUser(String firstName) {
         try {

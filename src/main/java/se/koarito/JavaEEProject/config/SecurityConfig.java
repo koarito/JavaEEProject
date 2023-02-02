@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import se.koarito.JavaEEProject.service.UserService;
 
@@ -15,18 +17,23 @@ import se.koarito.JavaEEProject.service.UserService;
 @EnableWebSecurity
 public class SecurityConfig {
     private final UserService userService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final PasswordConfig bCrypt;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/", "/rest/encode", "/error", "/login", "/weather/**", "/user/**").permitAll()
+                .requestMatchers("/api/auth", "/rest/encode", "/error", "/login", "/weather/**", "/user/**").permitAll()
                 .anyRequest()
                 .authenticated ()
                 .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .formLogin()
                 .and()
-                .authenticationProvider(authenticationOverride());
+                .authenticationProvider(authenticationOverride())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         //
 
         http.cors().configurationSource(request -> {

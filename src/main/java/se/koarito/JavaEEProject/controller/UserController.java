@@ -16,11 +16,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/create")
-    private long createUser(@RequestBody UserRequest userRequest){
-        return userService.createUser(userRequest);
-    }
-
     @GetMapping("/getuser")
     ResponseEntity<UserView> getUser(@RequestParam("email") String email) {
         return userService.getUser(email);
