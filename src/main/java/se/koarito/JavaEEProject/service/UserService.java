@@ -36,9 +36,9 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user).getId();
     }
 
-    public ResponseEntity<UserView> getUser(String email) {
+    public ResponseEntity<UserView> getUser(String firstName) {
         try {
-           UserView user = userRepository.findByEmail(email).get();
+           UserView user = userRepository.findByFirstName(firstName).get();
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch(Exception e){
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -71,6 +71,6 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByFirstName(username);
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("No user found"));
     }
 }
