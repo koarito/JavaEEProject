@@ -35,4 +35,6 @@ public class UserController {
     private ResponseEntity<User> editUser(@RequestBody User user, @PathVariable("id") Long id){
         return userService.editUser(user,id);
     }
+
+
 }

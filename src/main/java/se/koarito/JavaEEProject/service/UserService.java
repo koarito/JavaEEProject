@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
                 .firstName(requestBody.getFirstName())
                 .lastName(requestBody.getLastName())
                 .email(requestBody.getEmail())
-                .password(passwordConfig.bCryptEncoder().encode(requestBody.getPassword()))
+                .password(passwordConfig.bCryptPasswordEncoder().encode(requestBody.getPassword()))
                 .role(Role.valueOf(requestBody.getRole())).build();
         return userRepository.save(user).getId();
     }
