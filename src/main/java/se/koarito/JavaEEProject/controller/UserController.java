@@ -2,6 +2,7 @@ package se.koarito.JavaEEProject.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import se.koarito.JavaEEProject.data.domain.User;
 import se.koarito.JavaEEProject.data.projection.UserView;
@@ -17,17 +18,19 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/getuser")
-    ResponseEntity<UserView> getUser(@RequestParam("email") String email) {
+    ResponseEntity<User> getUser(@RequestParam("email") String email) {
         return userService.getUser(email);
     }
+
+
     @DeleteMapping("/deleteuser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private void deleteUser(@RequestParam("id") Long id) {
         userService.deleteUser(id);
     }
 
-    //TODO not working
-    @PatchMapping("/edituser/{id}")
-    private ResponseEntity<User> editUser(@RequestBody User user, @PathVariable("id") Long id){
-        return userService.editUser(user,id);
+    @PatchMapping("/edituser/{email}")
+    private ResponseEntity<User> editUser(@RequestBody User user, @PathVariable("email") String email){
+        return userService.editUser(user,email);
     }
 }

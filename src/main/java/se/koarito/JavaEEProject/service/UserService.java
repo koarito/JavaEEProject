@@ -23,9 +23,10 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public ResponseEntity<UserView> getUser(String firstName) {
+    //TODO: change back to userview?
+    public ResponseEntity<User> getUser(String email) {
         try {
-           UserView user = userRepository.findByFirstName(firstName).get();
+           User user = userRepository.findByEmail(email).get();
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch(Exception e){
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -41,12 +42,9 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public ResponseEntity<User> editUser(User user, Long id){
+    public ResponseEntity<User> editUser(User user, String email){
 
-        User userInDB = userRepository.findById(id).get();
-        if (Objects.nonNull(user.getEmail()))
-            userInDB.setEmail(user.getEmail());
-
+        User userInDB = userRepository.findByEmail(email).get();
         if (Objects.nonNull(user.getFirstName()))
             userInDB.setFirstName(user.getFirstName());
 
