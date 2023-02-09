@@ -1,12 +1,10 @@
 package se.koarito.JavaEEProject.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import se.koarito.JavaEEProject.data.domain.User;
-import se.koarito.JavaEEProject.data.projection.UserView;
-import se.koarito.JavaEEProject.data.requestbody.UserRequest;
 import se.koarito.JavaEEProject.service.UserService;
 
 @RestController
@@ -22,9 +20,8 @@ public class UserController {
         return userService.getUser(email);
     }
 
-
+    @RolesAllowed("ADMIN")
     @DeleteMapping("/deleteuser")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     private void deleteUser(@RequestParam("id") Long id) {
         userService.deleteUser(id);
     }
