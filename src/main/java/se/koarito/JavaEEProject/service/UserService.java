@@ -7,11 +7,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import se.koarito.JavaEEProject.config.PasswordConfig;
 import se.koarito.JavaEEProject.data.domain.User;
-import se.koarito.JavaEEProject.data.enm.Role;
-import se.koarito.JavaEEProject.data.projection.UserView;
-import se.koarito.JavaEEProject.data.requestbody.UserRequest;
+
 import se.koarito.JavaEEProject.repository.UserRepository;
 
 import java.util.Objects;
